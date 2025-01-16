@@ -1,0 +1,82 @@
+try
+            {
+                DataTable objDataTable = clsSalesGST.GSTReport(toptionMode, FromDate, ToDate, AccountId, 0, TransactionID, Product_Id);
+                objDataTable.Columns.Remove("StateName");
+                objDataTable.Columns.Remove("TinNo");
+                objDataTable.Columns.Remove("Address");
+                objDataTable.Columns.Remove("MobileNo");
+                objDataTable.Columns.Remove("PinCode");
+                objDataTable.Columns.Remove("Account_Id");
+                objDataTable.Columns.Remove("BillType");
+                objDataTable.Columns.Remove("Product_Id");
+                objDataTable.Columns.Remove("Paid_Amt");
+                objDataTable.Columns.Remove("Rem_Amt");
+                objDataTable.Columns.Remove("Bank_Id");
+                objDataTable.Columns.Remove("DD_Cheque_No");
+                objDataTable.Columns.Remove("BankTrans_Date");
+                objDataTable.Columns.Remove("Narration");
+                objDataTable.Columns.Remove("TransactionYearId");
+                objDataTable.Columns.Remove("RTGS_NEFT_Tran_No");
+                objDataTable.Columns.Remove("AmountInWord");
+                objDataTable.Columns.Remove("BillPaymentType");
+                objDataTable.Columns.Remove("Narration1");
+                objDataTable.Columns.Remove("Narration2");
+                objDataTable.Columns.Remove("Narration3");
+                objDataTable.Columns.Remove("Product_Id1");
+                objDataTable.Columns.Remove("ProductName");
+
+                objDataTable.Columns["Name"].ColumnName = "Customer_Name";
+                objDataTable.AcceptChanges();
+                objDataTable.Columns["NetAmt"].ColumnName = "NetAmount";
+                objDataTable.AcceptChanges();
+                objDataTable.Columns["CGST"].ColumnName = "CGSTAmt";
+                objDataTable.AcceptChanges();
+                objDataTable.Columns["SGST"].ColumnName = "SGSTAmt";
+                objDataTable.AcceptChanges();
+                objDataTable.Columns["IGST"].ColumnName = "IGSTAmt";
+                objDataTable.AcceptChanges();
+
+
+
+                objDataTable.Columns["Customer_Name"].SetOrdinal(0);
+                objDataTable.Columns["Bill_InvoiceNo"].SetOrdinal(1);
+                objDataTable.Columns["GSTIN_No"].SetOrdinal(2);
+                objDataTable.Columns["PaymentType"].SetOrdinal(3);
+                objDataTable.Columns["Date"].SetOrdinal(4);
+                objDataTable.Columns["Total"].SetOrdinal(5);
+                objDataTable.Columns["CGSTAmt"].SetOrdinal(6);
+                objDataTable.Columns["SGSTAmt"].SetOrdinal(7); ;
+                objDataTable.Columns["IGSTAmt"].SetOrdinal(8);
+                objDataTable.Columns["TotalAmount"].SetOrdinal(9);
+                objDataTable.Columns["RoundOff"].SetOrdinal(10);
+                objDataTable.Columns["NetAmount"].SetOrdinal(11);
+
+                if (objDataTable.Rows.Count > 0)
+                {
+                    Microsoft.Office.Interop.Excel.ApplicationClass XcelApp = new Microsoft.Office.Interop.Excel.ApplicationClass();
+                    XcelApp.Application.Workbooks.Add(Type.Missing);
+                    List<String> lsColumns = new List<string>();
+
+                    for (int i = 1; i < objDataTable.Columns.Count + 1; i++)
+                    {
+                        XcelApp.Cells[1, i] = objDataTable.Columns[i - 1].ColumnName.ToString();
+                    }
+
+                    for (int i = 0; i < objDataTable.Rows.Count; i++)
+                    {
+                        for (int j = 0; j < objDataTable.Columns.Count; j++)
+                        {
+                            XcelApp.Cells[i + 2, j + 1] = objDataTable.Rows[i][j].ToString(); //objDataTable.Rows[i].Cells[j].Value.ToString();
+                        }
+                    }
+                    XcelApp.Columns.AutoFit();
+                    XcelApp.Visible = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message + ex.StackTrace.ToString();
+                string PageName = "fmPurchase";
+                ClassForErrolLogMethods.InsertErrorLog(PageName, error);
+            }

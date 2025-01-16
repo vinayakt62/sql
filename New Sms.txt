@@ -1,0 +1,132 @@
+#region[Message]
+                if (objDataTable.Rows.Count > 0)
+                {
+                    lblMSG.Text = "????? ?????? ???? ???? ????? ???. ????? ?????? ???? ????-" + PG_Id + " ????? ????????????? ???????.";
+
+                    #region[Send SMS]
+                    string authKey = System.Web.Configuration.WebConfigurationManager.AppSettings["authKey"];
+                    string senderId = System.Web.Configuration.WebConfigurationManager.AppSettings["senderId"];                    
+                    string mobileNumber = MobileNo;                  
+                    //Your message to send, Add URL encoding here.
+                    string message = ("????? ?????? ???? ???? ????? ???. ????? ?????? ???? ????-" + PG_Id + " ????? ????????????? ???????. ?????? ????? ?????????.");
+                    //Prepare you post parameters
+                    StringBuilder sbPostData = new StringBuilder();
+                    sbPostData.AppendFormat("authkey={0}", authKey);
+                    sbPostData.AppendFormat("&mobiles={0}", mobileNumber);
+                    sbPostData.AppendFormat("&message={0}", message);
+                    sbPostData.AppendFormat("&sender={0}", senderId);
+                    sbPostData.AppendFormat("&route={0}", "4");
+                    sbPostData.AppendFormat("&unicode=1");
+                    try
+                    {
+                        #region[New SMS Code]
+                        // use the API URL here  
+                        string strUrl = "http://smsozone.com/api/mt/SendSMS?user=zpratnagiri&password=zpratnagiri@123&senderid=ZPRTNG&channel=Trans&DCS=8&flashsms=0&number=91" + mobileNumber + "&text=" + message + "&route=12";
+                        // Create a request object  
+                        WebRequest request = HttpWebRequest.Create(strUrl);
+                        // Get the response back  
+                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                        Stream s = (Stream)response.GetResponseStream();
+                        StreamReader readStream = new StreamReader(s);
+                        string dataString = readStream.ReadToEnd();
+                        response.Close();
+                        s.Close();
+                        readStream.Close();
+                        #endregion
+
+                        #region[Old SMS Code]
+                        ////Call Send SMS API
+                        //string sendSMSUri = "http://smsalerts.ozonesms.com/api/sendhttp.php";
+                        ////Create HTTPWebrequest
+                        //HttpWebRequest httpWReq = (HttpWebRequest)WebRequest.Create(sendSMSUri);
+                        ////Prepare and Add URL Encoded data
+                        //UTF8Encoding encoding = new UTF8Encoding();
+                        //byte[] data = encoding.GetBytes(sbPostData.ToString());
+                        ////Specify post method
+                        //httpWReq.Method = "POST";
+                        //httpWReq.ContentType = "application/x-www-form-urlencoded";
+                        //httpWReq.ContentLength = data.Length;
+                        //using (Stream stream = httpWReq.GetRequestStream())
+                        //{
+                        //    stream.Write(data, 0, data.Length);
+                        //}
+                        ////Get the response
+                        //HttpWebResponse response = (HttpWebResponse)httpWReq.GetResponse();
+                        //StreamReader reader = new StreamReader(response.GetResponseStream());
+                        //string responseString = reader.ReadToEnd();
+                        ////Close the response
+                        //reader.Close();
+                        //response.Close();
+                        #endregion
+                    }
+                    catch (SystemException ex)
+                    {
+                        string error = ex.Message + ex.StackTrace.ToString();
+                        string PageName = this.Request.CurrentExecutionFilePath;
+                        clsErrorLog.InsertErrorLog(PageName, error);
+                    }
+                    #endregion
+
+                }
+                #endregion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#region[New SMS Code]
+                                                        // use the API URL here  
+string user = System.Configuration.ConfigurationSettings.AppSettings["user"];
+string password = System.Configuration.ConfigurationSettings.AppSettings["password"];
+string senderid = System.Configuration.ConfigurationSettings.AppSettings["senderid"];
+string strUrl = "http://smsozone.com/api/mt/SendSMS?user=" + user + "&password=" + password + "&senderid=" + senderid + "&channel=Trans&DCS=8&flashsms=0&number=91" + mobileNumber + "&text=" + message + "&route=12";
+// Create a request object  
+WebRequest request = HttpWebRequest.Create(strUrl);
+// Get the response back  
+HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+Stream s = (Stream)response.GetResponseStream();
+StreamReader readStream = new StreamReader(s);
+string dataString = readStream.ReadToEnd();
+response.Close();
+s.Close();
+readStream.Close();
+#endregion
+
+
+
+
+
+#region[loadCurrentBalance]
+        public void LoadCurrentBalSMS()
+        {
+            #region[New SMS Code]
+            // use the API URL here  
+            string strUrl = "http://smsozone.com/api/mt/GetBalance?User=morayahospital&Password=moraya@123";
+            // Create a request object  
+            WebRequest request = HttpWebRequest.Create(strUrl);
+            // Get the response back  
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream s = (Stream)response.GetResponseStream();
+            StreamReader readStream = new StreamReader(s);
+            string dataString = readStream.ReadToEnd();
+            string[] tokens = dataString.Split(',');
+            string[] tokens1 = tokens[2].Split(':');
+            lblRemSMSCount.Text = tokens1[3].Substring(0,tokens1[3].Length-2);
+            response.Close();
+            s.Close();
+            readStream.Close();
+            #endregion
+        }
+        #endregion

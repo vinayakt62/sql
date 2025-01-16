@@ -1,0 +1,7 @@
+https://starconnectcbs.bankofindia.com/BankAwayRetail/(S(u2btzozzux1mhu55hhb1uh45))/web/L001/retail/jsp/user/RetailSignOn.aspx?RequestId=4762681
+
+ Reference Number	20160928191834227
+ Account Number 	151010110002233
+ Customer Id 	124119146
+ Name 	 	 VINAYAK KRISHNATH TREPANKAR
+ Login User Id 	 124119146

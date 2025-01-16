@@ -1,0 +1,7 @@
+
+                                                            HttpWebRequest myReq = (System.Net.HttpWebRequest)WebRequest.Create("http://smsozone.com/api/mt/SendSMS?user=" + user + "&password=" + password + "&senderid=" + senderid + "&channel=Trans&DCS=8&flashsms=0&number=91" + mobileNumber + "&text=" + message + "&route=12");
+                                                            HttpWebResponse myResp = (HttpWebResponse)myReq.GetResponse();
+                                                            System.IO.StreamReader respStreamReader = new System.IO.StreamReader(myResp.GetResponseStream());
+                                                            string responseString = respStreamReader.ReadToEnd();
+                                                            respStreamReader.Close();
+                                                            myResp.Close();

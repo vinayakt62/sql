@@ -1,0 +1,5 @@
+if (char.IsDigit(e.KeyChar) == false & char.IsControl(e.KeyChar) == false)
+            {
+                e.Handled = true;
+            }
+            e.Handled = !(ValidNum.IndexOf(e.KeyChar) > -1 || e.KeyChar == Convert.ToChar(Keys.Back));

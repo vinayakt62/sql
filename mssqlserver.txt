@@ -1,0 +1,12 @@
+Solution:
+1) Go to command prompt and use SC command to delete service
+
+sc delete sqlserveragent
+sc delete mssqlserver
+
+2) You have to also delete the services registry entry using regedit
+HKEY_LOCAL_MACHINE/SYSTEM/CurrentControlSet/Services
+
+
+
+save karun thev 

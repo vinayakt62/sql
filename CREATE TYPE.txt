@@ -1,0 +1,33 @@
+
+/****** Object:  UserDefinedTableType [dbo].[Type_Stock]    Script Date: 06/30/2018 15:43:33 ******/
+CREATE TYPE [dbo].[Type_Stock] AS TABLE(
+	[Stock_Id] [bigint] NOT NULL,
+	[CategoryId] [bigint] NULL,
+	[ItemId] [bigint] NULL,
+	[Qty] [numeric](18, 3) NULL,
+	[Barcode] [varchar](50) NULL,
+	[TransactionYearId] [int] NULL,
+	[Party_Id] [bigint] NULL,
+	[SalesCommission] [decimal](18, 2) NULL,
+	[UnitId] [bigint] NULL,
+	[PurchaseRate] [decimal](18, 2) NULL,
+	[MStock_Id] [bigint] NULL,
+	[Size] [nvarchar](max) NULL,
+	[MRP] [decimal](18, 2) NULL,
+	[IsActive] [int] NULL
+)
+GO
+
+
+
+
+
+
+CREATE PROC [dbo].[SP_Submit_Stock_Table]
+@DT_Stock [dbo].[Type_Stock] READONLY
+AS
+BEGIN
+	insert into [dbo].[Type_Stock]
+	select * from @DT_Stock
+END
+

@@ -1,0 +1,6 @@
+EXEC sp_resetstatus 'SmartGaramPanchayat';
+ALTER DATABASE SmartGaramPanchayat SET EMERGENCY
+DBCC checkdb('SmartGaramPanchayat')
+ALTER DATABASE SmartGaramPanchayat SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+DBCC CheckDB ('SmartGaramPanchayat', REPAIR_ALLOW_DATA_LOSS)
+ALTER DATABASE SmartGaramPanchayat SET MULTI_USER

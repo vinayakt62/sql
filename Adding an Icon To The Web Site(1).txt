@@ -1,0 +1,5 @@
+Adding an Icon To The Web Site 
+
+Create an .ICO file. The ico file will be the icon. Add a small code to the header of the site
+ < REL="SHORTCUT ICON" HREF="iconName.ico">
+ 

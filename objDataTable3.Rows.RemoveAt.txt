@@ -1,0 +1,14 @@
+for (int i = 0; i < objDataTable3.Rows.Count; i++)
+                {
+                     int RowCount = Convert.ToInt32(objDataTable3.Rows.Count);
+                     for (int k = 0; k < RowCount; k++)
+                     {
+                         if (objDataTable3.Rows[k]["FeeNotGiven"].ToString() == "0")
+                         {
+                             objDataTable3.Rows.RemoveAt(k);
+                         }
+                         objDataTable3.AcceptChanges();
+                         RowCount = objDataTable3.Rows.Count;
+                     }
+                  
+                } 

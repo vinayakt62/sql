@@ -1,0 +1,43 @@
+if ((this.ActiveControl.Name == "txtCGST") | (this.ActiveControl.Name == "txtSGST") | (this.ActiveControl.Name == "txtIGST") | (this.ActiveControl.Name == "txtDiscper"))
+            {
+                if ((e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) | (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) | e.KeyCode == Keys.Decimal | e.KeyCode == Keys.Back | e.KeyCode == Keys.Delete | e.KeyCode == Keys.Left | e.KeyCode == Keys.Right | e.KeyCode == Keys.Home | e.KeyCode == Keys.End | e.KeyCode == Keys.Enter | Control.ModifierKeys == Keys.Shift)
+                {
+                    if ((e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9) & Control.ModifierKeys == Keys.Shift)
+                    {
+                        e.SuppressKeyPress = true;
+                        return;
+                    }
+                    if (this.ActiveControl.Text.Contains("."))
+                    {
+                        if (e.KeyCode == Keys.Decimal)
+                        {
+                            e.SuppressKeyPress = true;
+                            return;
+                        }
+                        else
+                        {
+                            string[] temp = this.ActiveControl.Text.Split('.');
+                            TextBox t = new TextBox();
+                            t = (TextBox)this.ActiveControl;
+                            if ((e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) | (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9))
+                            {
+                                if (temp[1].Length > 1 && t.SelectionStart > temp[0].Length)
+                                {
+                                    e.SuppressKeyPress = true;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                    else if ((this.ActiveControl.Text.Length > 1 & !this.ActiveControl.Text.Contains(".") & ((e.KeyCode >= Keys.NumPad0 && e.KeyCode <= Keys.NumPad9) | (e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9))))
+                    {
+                        e.SuppressKeyPress = true;
+                        return;
+                    }
+                }
+                else
+                {
+                    e.SuppressKeyPress = true;
+                    return;
+                }
+            }

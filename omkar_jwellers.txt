@@ -1,0 +1,20 @@
+user id:omkarjwellers
+password :omkarjwellers@123
+sender id: OMKARJ
+
+API KEY : dnAtjlNfHUaTkj3jLHhXjw
+
+
+CHECK BALANCE
+http://sms.ozonesms.com/api/mt/GetBalance?User=omkarjwellers&Password=omkarjwellers@123
+
+
+Single SMS
+
+http://sms.ozonesms.com/api/mt/SendSMS?user=omkarjwellers&password=omkarjwellers@123&senderid=OMKARJ&channel=trans&DCS=0&flashsms=0&number=91989xxxxxxx&text=test message&route=##
+
+
+
+Multiple SMS
+
+http://sms.ozonesms.com/api/mt/SendSMS?user=omkarjwellers&password=omkarjwellers@123&senderid=OMKARJ&channel=trans&DCS=0&flashsms=0&number=91989xxxxxxx,91999xxxxxxx&text=test message&route=##
