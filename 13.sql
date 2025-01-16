@@ -1,0 +1,1 @@
+SELECT 'truncate table '+name  FROM SYS.TABLES
